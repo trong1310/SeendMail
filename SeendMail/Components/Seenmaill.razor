@@ -1,0 +1,40 @@
+﻿@* @page "/seenmail"
+@using SeendMail.Databases.SeenMail
+@using SeendMail.IServices
+@inject ISeenMaillServices _seenmailServices
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gửi Email</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Gửi Email</h2>
+        <EditForm Model="@Users" OnValidSubmit="@SeenMailAsync">
+            <DataAnnotationsValidator />
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" @bind-value="Users.FullName">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" @bind-value="Users.Email">
+            </div>
+            <button class="btn btn-success" type="submit">Gửi</button>
+        </EditForm>
+    </div>
+</body>
+</html>
+
+@code {
+    Users Users = new Users(); // Khởi tạo đối tượng Users
+    public async Task SeenMailAsync()
+    {
+        // Gửi email với dữ liệu từ mô hình Users
+        await _seenmailServices.SeenMail(Users.Email);
+    }
+}
+ *@
