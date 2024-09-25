@@ -34,6 +34,8 @@ namespace Seenmail.Controllers
                 bodyEmail.HtmlBody = @$"
                 <h1>Thông Báo Quan Trọng Từ NeonCinemas</h1>
                 <p>Chào bạn, {user.FullName}</p>
+                <p>Có phải bạn ở, {user.Address}</p>
+                <p>Bạn {user.Age} tuổi đúng không</p>
                 <p>Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi! Chúng tôi muốn thông báo rằng bạn ba chấm</p>
                 <p>Nếu bạn có bất kỳ câu hỏi nào, vui lòng liên hệ với chúng tôi qua thông tin dưới đây.</p>
                 <p>Trân trọng,<br>
