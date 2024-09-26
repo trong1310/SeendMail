@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Seenmail.Databases.SeenMail;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using Seenmail.IServices.IUtilities;
+using Seenmail.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddTransient<IUserUtilities, UserUtilities>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MimeKit;
+using Seenmail.Databases;
 using Seenmail.Databases.SeenMail;
+using Seenmail.IServices.IUtilities;
 using Seenmail.Request;
 
 namespace Seenmail.Controllers
@@ -12,64 +14,31 @@ namespace Seenmail.Controllers
     [ApiController]
     public class SeenMaillController : ControllerBase
     {
-        SeedMailContext _context;
-        public SeenMaillController(SeedMailContext context)
+        private readonly SeedMailContext _context;
+        private readonly IUserUtilities _userUtilities;
+        public SeenMaillController(SeedMailContext context, IUserUtilities userUtilities)
         {
+            _userUtilities = userUtilities;
             _context = context;
         }
-        [HttpPost]
-        public async Task<IActionResult> SeenMaill(SeedMailRequest request)
+        [HttpPost("SendMail")]
+        public async Task<IActionResult> SeenMaill([FromBody]SeedMailRequest request)
         {
-              
-              
-
-                var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == request.email);
-                var bodyEmail = new BodyBuilder();
-                var email = "vantrongvt1310@gmail.com";
-                var appPass = "vjxv wmvz mokr zwer";
-                var emailMessage = new MimeMessage();
-                emailMessage.From.Add(new MailboxAddress("Từ: ", email));
-                emailMessage.To.Add(new MailboxAddress("Xin Chào : ", user.Email));
-                emailMessage.Subject = "Chào bạn tôi là ... ";
-                bodyEmail.HtmlBody = @$"
-                <h1>Thông Báo Quan Trọng Từ NeonCinemas</h1>
-                <p>Chào bạn, {user.FullName}</p>
-                <p>Có phải bạn ở, {user.Address}</p>
-                <p>Bạn {user.Age} tuổi đúng không</p>
-                <p>Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi! Chúng tôi muốn thông báo rằng bạn ba chấm</p>
-                <p>Nếu bạn có bất kỳ câu hỏi nào, vui lòng liên hệ với chúng tôi qua thông tin dưới đây.</p>
-                <p>Trân trọng,<br>
-                Đội ngũ hỗ trợ khách hàng NeonCinemas</p>	
-                ";
-                emailMessage.Body = bodyEmail.ToMessageBody();
-
-                using (var client = new MailKit.Net.Smtp.SmtpClient())
-                {
-                    client.Connect("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
-                    client.Authenticate(email, appPass);
-                    client.Send(emailMessage);
-                    client.Disconnect(true);
-                }
-                return Ok(user);
+            try
+            {
+                var sendmail = await _userUtilities.SendMail(request);
+                return Ok(sendmail);
+            }
+            catch (Exception ex) 
+            { 
+             return BadRequest(ex.Message);
+            }
         }
         [HttpPost("Create")]
         public async Task<IActionResult> CreateUser(Users users)
         {
-            var userdata = new Users()
-            {
-                Id = users.Id,
-                Address = users.Address,
-                Age = users.Age,
-                Email = users.Email,
-                FullName = users.FullName,
-                Gender = users.Gender,
-                PassWord = users.PassWord,
-                PhoneNumber = users.PhoneNumber,
-                Status = users.Status,
-            };
-           await _context.Users.AddAsync(userdata);
-            await _context.SaveChangesAsync();
-            return Ok(users);
+            var obj = await _userUtilities.CreateUser(users);
+            return Ok(obj);
         }
     }
 }
