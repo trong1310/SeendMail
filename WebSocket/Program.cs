@@ -15,6 +15,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+// C?u hình WebSocket
+var webSocketOptions = new WebSocketOptions()
+{
+    KeepAliveInterval = TimeSpan.FromMinutes(10) // Th?i gian gi? k?t n?i
+};
+app.UseWebSockets(webSocketOptions);
+
 
 app.UseHttpsRedirection();
 
