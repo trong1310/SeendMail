@@ -5,7 +5,9 @@ VisualStudioVersion = 17.11.35303.130
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seenmail", "Seenmail\Seenmail.csproj", "{C7EEA60B-9A55-4BA1-8C49-78969F72EF45}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSocket", "WebSocket\WebSocket.csproj", "{734E3D3D-530C-4275-BBDE-CE432F220ACA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebSocket", "WebSocket\WebSocket.csproj", "{734E3D3D-530C-4275-BBDE-CE432F220ACA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocketClientConsole", "SocketClientConsole\SocketClientConsole.csproj", "{A1544CAE-D8F4-4105-9143-E237E8FB8FCE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{734E3D3D-530C-4275-BBDE-CE432F220ACA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{734E3D3D-530C-4275-BBDE-CE432F220ACA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{734E3D3D-530C-4275-BBDE-CE432F220ACA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1544CAE-D8F4-4105-9143-E237E8FB8FCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1544CAE-D8F4-4105-9143-E237E8FB8FCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1544CAE-D8F4-4105-9143-E237E8FB8FCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1544CAE-D8F4-4105-9143-E237E8FB8FCE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
